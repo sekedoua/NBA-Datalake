@@ -1,117 +1,101 @@
-# NBADataLake
-This repository contains the setup_nba_data_lake.py script, which automates the creation of a data lake for NBA analytics using AWS services. The script integrates Amazon S3, AWS Glue, and Amazon Athena, and sets up the infrastructure needed to store and query NBA-related data.
+# Script Python DataLake NBA
+Ce script  (setup_nba_data_lake.py) automatise la création et la mise en production de servies AWS. Il met en oeuvre les bases pour l'architecture d'un DataLake  dédiés à l'analyses de donnés NBA à l'aide d'AWS S3, AWS Glue et AWS Athena.
 
-# Overview
-The setup_nba_data_lake.py script performs the following actions:
+# Fonctionnalités
+ Actions réalisées par le scripts : 
+- Crée un compartiment Amazon S3 pour stocker les données brutes et traitées.
+- Télécharge des exemples de données NBA (format JSON) dans le compartiment S3.
+- Crée une base de données AWS Glue et une table externe pour interroger les données.
+- Configure Amazon Athena pour interroger les données stockées dans le compartiment S3.
+![Maisdiagram](src/img/main_diagram.png)
 
-Creates an Amazon S3 bucket to store raw and processed data.
-Uploads sample NBA data (JSON format) to the S3 bucket.
-Creates an AWS Glue database and an external table for querying the data.
-Configures Amazon Athena for querying data stored in the S3 bucket.
+# Préréquis
 
-# Prerequisites
-Before running the script, ensure you have the following:
+- "SportsDataIO API Free Trial"  /  "Launch Developer Portal" / NBA /"Standings" / "Query String Parameters"/  API key
+- Copier la clée API
 
-Go to Sportsdata.io and create a free account
-At the top left, you should see "Developers", if you hover over it you should see "API Resources"
-Click on "Introduction & Testing"
+- IAM Role/Permissions:  
+    - - S3: s3:CreateBucket, s3:PutObject, s3:DeleteBucket, s3:ListBucket
+    - - Glue: glue:CreateDatabase, glue:CreateTable, glue:DeleteDatabase, glue:DeleteTable
+    - - Athena: athena:StartQueryExecution, athena:GetQueryResults
 
-Click on "SportsDataIO API Free Trial" and fill out the information & be sure to select NBA for this tutorial
+#  
+# Etape 1:   CloudShell Console
 
-You will get an email and at the bottom it says "Launch Developer Portal"
+1. Aller sur aws.amazon.com et conectez vous à votre compte puis sur CloudShell 
 
-By default it takes you to the NFL, on the left click on NBA
+2. Allez dans las zonne de l'invite de commande a >_  
 
-Scroll down until you see "Standings"
-
-You'll "Query String Parameters", the value in the drop down box is your API key. 
-
-Copy this string because you will need to paste it later in the script
-
-IAM Role/Permissions: Ensure the user or role running the script has the following permissions:
-
-S3: s3:CreateBucket, s3:PutObject, s3:DeleteBucket, s3:ListBucket
-Glue: glue:CreateDatabase, glue:CreateTable, glue:DeleteDatabase, glue:DeleteTable
-Athena: athena:StartQueryExecution, athena:GetQueryResults
-
-# START HERE 
-# Step 1: Open CloudShell Console
-
-1. Go to aws.amazon.com & sign into your account
-
-2. In the top, next to the search bar you will see a square with a >_ inside, click this to open the CloudShell
-
-# Step 2: Create the setup_nba_data_lake.py file
-1. In the CLI (Command Line Interface), type
+# Etape 2 : Création et configuration du script setup_nba_data_lake.py avec nano
+1.  Dans l'invite de commande CloudShell
 ```bash
 nano setup_nba_data_lake.py
 ```
+![Python_fileconfig](src/img/nano_python.PNG)
 
+2. Dans une autre fenêtre allez sur [GitHub](https://github.com/sekedoua/NBA-Datalake)
 
-2. In another window, go to [GitHub](https://github.com/alahl1/NBADataLake)
+- Copier et coller le confsetup_nba_data_lake.py  dans l'invite de commande nano
 
--Copy the contents inside the setup_nba_data_lake.py file
+- Sauvegarder le fichier : Ctrl+X pour sortir puis Y pour confirmer l'enregistrement
 
--Go back to the Cloudshell window and paste the contents inside the file.
-
-3. Find the line of code under #Sportsdata.io configurations that says "api_key" 
-paste your api key inside the quotations
-
-4. Press ^X to exit, press Y to save the file, press enter to confirm the file name 
-
-
-# Step 3: Create .env file
-1. In the CLI (Command Line Interface), type
+# Etape 3 Create le fichier des variables d'environnement .env  
+1.  
 ```bash
 nano .env
 ```
-2. paste the following line of code into your file, ensure you swap out with your API key
+2. Collez la ligne de code suivante dans votre fichier, assurez-vous d'utiliser votre clé API
 ```bash
-SPORTS_DATA_API_KEY=your_sportsdata_api_key
-NBA_ENDPOINT=https://api.sportsdata.io/v3/nba/scores/json/Players
+SPORTS_DATA_API_KEY="votre_sportsdata_api_key"
+NBA_ENDPOINT="https://api.sportsdata.io/v3/nba/scores/json/Players"
 ```
+- Sauvegarder le fichier : Ctrl+X pour sortir puis Y pour confirmer l'enregistrement
 
-3. Press ^X to exit, press Y to save the file, press enter to confirm the file name 
+![Python_fileconfig](src/img/env.PNG)
 
-
-# Step 4: Run the script
-1. In the CLI type
+# Etape 4: Exécuter le script
+1. Dans l'invite de commande taper
 ```bash
 python3 setup_nba_data_lake.py
 ```
--You should see the resources were successfully created, the sample data was uploaded successfully and the Data Lake Setup Completed
+- Vous devriez voir que les ressources ont été crée avec succès,  des données exemple ont été chargée avec succès et la configuration du DataLake réalisée. 
 
-# Step 5: Manually Check For The Resources
-1. In the Search Bar, type S3 and click blue hyper link name
+![Python_fileconfig](src/img/Success1.PNG)
 
--You should see 2 General purpose bucket named "Sports-analytics-data-lake"
+# Etape 5 :  Vérification manuelle que les ressources ont bien été créées
+1. Dans la barre de recherche, tapez S3 et cliquez sur le nom du lien hypertexte bleu
 
--When you click the bucket name you will see 3 objects are in the bucket
+    -  Vous devriez voir 2 compartiments à usage général nommés « noms_que_vous_avez_données_dans_le_script_python »
 
-2. Click on raw-data and you will see it contains "nba_player_data.json"
+![Python_fileconfig](src/img/Success2.PNG)
+![Python_fileconfig](src/img/Success3.PNG)
 
-3. Click the file name and at the top you will see the option to Open the file
+    -  Lorsque vous cliquez sur le nom du compartiment, vous verrez que 3 objets se trouvent dans le compartiment
 
--You'll see a long string of various NBA data
+2. Cliquez sur raw-data et vous verrez qu'il contient « nba_player_data.json »
 
-4. Head over to Amazon Athena and you could paste the following sample query:
+3. Cliquez sur le nom du fichier et en haut, vous verrez l'option Ouvrir le fichier
+
+    - Vous verrez une longue chaîne de diverses données NBA
+
+4. Rendez-vous sur Amazon Athena et vous pouvez coller l'exemple de requête suivant :
 ```bash
 SELECT FirstName, LastName, Position, Team
 FROM nba_players
 WHERE Position = 'PG';
 ```
+- Cliquer Exécuter
+- Vous devriez voir le résultat de la requete plus bas. 
+![Python_fileconfig](src/img/Success5.PNG)
 
--Click Run
--You should see an output if you scroll down under "Query Results"
+# Etape 6 :  Suppression des ressources pour éviter d'être facturé
+1. Dans l'invite de commande taper
+```bash
+python3 delete_aws_ressources.py
+```
 
-### **What We Learned**
-1. Securing AWS services with least privilege IAM policies.
-2. Automating the creation of services with a script.
-3. Integrating external APIs into cloud-based workflows.
-
-
-### **Future Enhancements**
-1. Automate data ingestion with AWS Lambda
-2. Implement a data transformation layer with AWS Glue ETL
-3. Add advanced analytics and visualizations (AWS QuickSight)
+### **Ce que nous avons appris**
+1. Sécurisation des services AWS avec des politiques IAM de moindre privilège.
+2. Automatisation de la création de services avec un script.
+3. Intégration d'API externes dans des flux de travail basés sur le cloud.
 
