@@ -1,5 +1,5 @@
 # Script Python DataLake NBA
-Ce script  (setup_nba_data_lake.py) automatise la création et la mise en production de servies AWS. Il met en oeuvre les bases pour l'architecture d'un DataLake  dédiés à l'analyses de donnés NBA à l'aide d'AWS S3, AWS Glue et AWS Athena.
+Ce script  (setup_nba_data_lake.py) automatise la création et la mise en production de services AWS. Il met en oeuvre les bases pour l'architecture d'un DataLake  dédiés à l'analyses de données NBA à l'aide d'AWS S3, AWS Glue et AWS Athena.
 
 # Fonctionnalités
  Actions réalisées par le scripts : 
@@ -31,13 +31,12 @@ Ce script  (setup_nba_data_lake.py) automatise la création et la mise en produc
 ```bash
 nano setup_nba_data_lake.py
 ```
-![Python_fileconfig](src/img/nano_python.PNG)
+2. Dans une autre fenêtre récupérez le script sur [GitHub](https://github.com/sekedoua/NBA-Datalake/blob/main/src/setup_nba_data_lake.py)
 
-2. Dans une autre fenêtre allez sur [GitHub](https://github.com/sekedoua/NBA-Datalake)
-
-- Copier et coller le confsetup_nba_data_lake.py  dans l'invite de commande nano
-
+- Copier et coller le contnu du script  setup_nba_data_lake.py  dans l'invite de commande nano
 - Sauvegarder le fichier : Ctrl+X pour sortir puis Y pour confirmer l'enregistrement
+
+![Python_fileconfig](src/img/nano_python.PNG)
 
 # Etape 3 Create le fichier des variables d'environnement .env  
 1.  
@@ -58,7 +57,7 @@ NBA_ENDPOINT="https://api.sportsdata.io/v3/nba/scores/json/Players"
 ```bash
 python3 setup_nba_data_lake.py
 ```
-- Vous devriez voir que les ressources ont été crée avec succès,  des données exemple ont été chargée avec succès et la configuration du DataLake réalisée. 
+- Vous devriez voir que les ressources ont été créées avec succès,  des données exemple ont été chargée avec succès et la configuration du DataLake réalisée.
 
 ![Python_fileconfig](src/img/Success1.PNG)
 
