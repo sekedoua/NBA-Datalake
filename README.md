@@ -38,7 +38,7 @@ nano setup_nba_data_lake.py
 
 ![Python_fileconfig](src/img/nano_python.PNG)
 
-# Etape 3 Create le fichier des variables d'environnement .env  
+# Etape 3 Création du fichier le fichier des variables d'environnement .env  
 1.  
 ```bash
 nano .env
