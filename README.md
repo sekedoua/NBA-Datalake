@@ -1,5 +1,5 @@
 # Script Python DataLake NBA
-Ce script  (setup_nba_data_lake.py) automatise la création et la mise en production de services AWS. Il met en oeuvre les bases pour l'architecture d'un DataLake  dédiés à l'analyses de données NBA à l'aide d'AWS S3, AWS Glue et AWS Athena.
+Ce script  (setup_nba_data_lake.py) automatise la création et la mise en production de services AWS. Il met en œuvre les bases pour l'architecture d'un DataLake  dédiés à l'analyses de données NBA à l'aide d'AWS S3, AWS Glue et AWS Athena.
 
 # Fonctionnalités
  Actions réalisées par le scripts : 
